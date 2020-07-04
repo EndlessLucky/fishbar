@@ -1,0 +1,17 @@
+<div class="product-outer">
+  <div class="product-inner">
+    <div class="product-image-wrapper">
+      <a class="woocommerce-LoopProduct-link">
+        <img src={{product.image}} class="img-responsive" alt="">
+      </a>
+    </div>
+    <div class="product-content-wrapper">
+      <a class="woocommerce-LoopProduct-link">
+        <h3>{{ product.name }}</h3>
+      </a>
+      <div class="hover-area">
+        <a (click)="addToCart.emit()" rel="nofollow" data-quantity="1" data-product_id="51" data-product_sku="" class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+      </div>
+    </div>
+  </div>
+</div>

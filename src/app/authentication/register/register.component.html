@@ -1,0 +1,61 @@
+<div class="u-column2 col-2">
+    <h2>Register</h2>
+    <form  class="register">
+        <p class="before-register-text">Create your very own account</p>
+        <p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
+            <label for="reg_email">Email address <span class="required">*</span></label>
+            <input type="email" class="woocommerce-Input woocommerce-Input--text input-text" name="email" id="reg_email" value="" #userEmail required />
+        </p>
+        <p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
+            <label for="reg_password">Password <span class="required">*</span></label>
+            <input type="password" class="woocommerce-Input woocommerce-Input--text input-text" name="password" id="reg_password" #userPwd required/>
+        </p>
+        <!-- Spam Trap -->
+        <div style="left: -999em; position: absolute;">
+            <label for="trap">Anti-spam</label>
+            <input type="text" name="email_2" id="trap" tabindex="-1" />
+        </div>
+        <p class="woocomerce-FormRow form-row">
+            <input type="hidden" id="woocommerce-register-nonce" name="woocommerce-register-nonce" value="1fe13dcb6d" />
+            <input type="hidden" name="_wp_http_referer" value="/pizzaro/my-account/" />
+            <input type="button" class="woocommerce-Button button" name="register" value="Register" (click)="authService.SignUp(userEmail.value, userPwd.value)"/>
+<!--            <input type="button" class="woocommerce-Button button" name="register" value="Register" (click)="open(content)"/>-->
+        </p>
+        <p class="woocommerce-LostPassword lost_password">
+            <a [routerLink]="['/auth', 'login']">Go to login page</a>
+        </p>
+        <div class="register-benefits">
+            <h3>Sign up today and you will be able to :</h3>
+            <ul>
+                <li>Speed your way through checkout</li>
+                <li>Track your orders easily</li>
+                <li>Keep a record of all your purchases</li>
+            </ul>
+        </div>
+    </form>
+</div>
+<ng-template ngbModalContainer></ng-template>
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Welcome! Please input your profile information</h4>
+        </div>
+        <div class="modal-body">
+            <p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
+                <label for="reg_email">Username <span class="required">*</span></label>
+                <input type="name" class="woocommerce-Input woocommerce-Input--text input-text" placeholder="please type name" #displayName required />
+            </p>
+            <p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
+                <label for="reg_email">Address <span class="required">*</span></label>
+                <input type="name" class="woocommerce-Input woocommerce-Input--text input-text" placeholder="please type address" #address required />
+            </p>
+            <p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
+                <label for="reg_email">Phone number <span class="required">*</span></label>
+                <input type="name" class="woocommerce-Input woocommerce-Input--text input-text" placeholder="please type phone number" #phoneNumber required />
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click) = "this.saveProfile(displayName.value, address.value, phoneNumber.value)">OK</button>
+        </div>
+    </div>
+</ng-template>

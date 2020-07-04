@@ -1,0 +1,17 @@
+<div class="u-column1 col-1">
+    <h2>Verify email</h2>
+    <form  class="login">
+        <div class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide" *ngIf="authService.userData as user">
+            <p class="text-center">We have sent a confirmation email to <strong>{{user.email}}</strong>.</p>
+            <p class="text-center">Please check your email and click on the link to verfiy your email address.</p>
+        </div>
+        <p class="form-row">
+            <input type="hidden" id="woocommerce-login-nonce" name="woocommerce-login-nonce" value="02aaeb6b10" />
+            <input type="hidden" name="_wp_http_referer" value="/pizzaro/my-account/" />
+            <input type="submit" class="woocommerce-Button button" name="login" value="Resend Verification Email" (click)="authService.SendVerificationMail()"/>
+        </p>
+        <p class="woocommerce-LostPassword lost_password">
+            <a [routerLink]="['/auth', 'login']">Go to back?</a>
+        </p>
+    </form>
+</div>

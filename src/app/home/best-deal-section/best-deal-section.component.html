@@ -1,0 +1,30 @@
+<div class="section-products">
+  <h2 class="section-title">Best deals</h2>
+  <div class="columns-4">
+    <ul class="products">
+
+      <li class="product" *ngFor="let bestdeal of bestdeals">
+        <div class="product-outer">
+          <div class="banner-bg">
+            <div class="product-image-wrapper">
+              <a routerLink="/item" class="woocommerce-LoopProduct-link">
+                <img src={{bestdeal.image}} width="300" height="300" class="img-responsive" alt="">
+              </a>
+            </div>
+            <div class="product-content-wrapper">
+              <a href="single-product-v1.html" class="woocommerce-LoopProduct-link">
+                <h3>{{ bestdeal.name  }}</h3>
+              </a>
+<!--              <div class="hover-area">-->
+<!--                 <a rel="nofollow" routerLink="/cart" data-quantity="1" data-product_id="51" data-product_sku=""-->
+<!--                    class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add to-->
+<!--                    cart</a>-->
+<!--              </div>-->
+            </div>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</div>

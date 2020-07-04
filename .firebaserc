@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fishbar-778c8": {
+      "hosting": {
+        "fishbar": [
+          "fishbar-778c8"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "foodorder-3cc96"
+  }
+}

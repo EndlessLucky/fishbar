@@ -1,0 +1,11 @@
+<div class="section-products">
+  <div class="woocommerce columns-3">
+    <div class="columns-3">
+      <ul class="products">
+        <li class="product" *ngFor="let item of bestdeals">
+          <fishbar-deal-product-item [product]="item"></fishbar-deal-product-item>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
