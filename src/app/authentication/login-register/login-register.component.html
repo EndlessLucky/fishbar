@@ -16,10 +16,10 @@
             <input type="button" class="woocommerce-Button button" name="login" value="Login" (click)="authService.SignIn(userName.value, userPassword.value)"/>
         </p>
         <p class="woocommerce-LostPassword lost_password">
-            <a [routerLink]="['/auth/login/verify_email/forgot_pwd','register']">Do not have account? Create one</a>
+            <a [routerLink]="['/auth','register']">Do not have account? Create one</a>
         </p>
         <p class="woocommerce-LostPassword lost_password">
-            <a [routerLink]="['/auth/login/verify_email', 'forgot_pwd']">Lost your password?</a>
+            <a [routerLink]="['/auth', 'forgot-pwd']">Lost your password?</a>
         </p>
     </form>
 </div>

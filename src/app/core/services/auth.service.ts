@@ -74,7 +74,7 @@ export class AuthService {
   // Send email verfificaiton when new user sign up
   async SendVerificationMail() {
     await (await this.afAuth.currentUser).sendEmailVerification();
-    this.router.navigate(['/auth/login', 'verify-email']);
+    this.router.navigate(['/auth', 'verify-email']);
   }
 
   // Reset Forggot password

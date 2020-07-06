@@ -12,16 +12,16 @@ const routes: Routes = [
     path: '', component: AuthenticationComponent,
     children: [
       {
-        path: ':login', component: LoginRegisterComponent
+        path: 'login', component: LoginRegisterComponent
       },
       {
-        path: 'login/verify_email/forgot_pwd/:register', component: RegisterComponent
+        path: 'register', component: RegisterComponent
       },
       {
-        path: 'login/:verify_email', component: VerifyEmailComponent
+        path: 'verify-email', component: VerifyEmailComponent
       },
       {
-        path: 'login/verify_email/:forgot_pwd', component: ForgotPasswordComponent
+        path: 'forgot-pwd', component: ForgotPasswordComponent
       }
     ],
   }
