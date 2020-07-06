@@ -1,12 +1,12 @@
 <div class="product-outer">
     <div class="product-inner">
         <div class="product-image-wrapper">
-            <a class="woocommerce-LoopProduct-link" [routerLink]="['/products/', routeParam, product.id]">
+            <a class="woocommerce-LoopProduct-link" [routerLink]="['/products/', routeParam, product.name]">
                 <img src={{product.image}} class="img-responsive" alt="">
             </a>
         </div>
         <div class="product-content-wrapper">
-            <a class="woocommerce-LoopProduct-link" [routerLink]="['/products/', routeParam, product.id]">
+            <a class="woocommerce-LoopProduct-link" [routerLink]="['/products/', routeParam, product.name]">
                 <h3>{{ product.name }}</h3>
             </a>
 <!--            <div class="hover-area">-->

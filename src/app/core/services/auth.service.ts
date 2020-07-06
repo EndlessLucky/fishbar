@@ -34,8 +34,8 @@ export class AuthService {
           this.users = users;
           this.userData = this.users.filter(x => x.uid === result.user.uid)[0];
           localStorage.setItem('user', JSON.stringify(this.userData));
+          this.router.navigate(['dashboard']);
         });
-        // this.router.navigate(['dashboard']);
       }).catch((error) => {
         window.alert(error.message);
       });

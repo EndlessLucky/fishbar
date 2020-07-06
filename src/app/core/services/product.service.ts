@@ -42,7 +42,7 @@ export class ProductService {
     this.db.list('Category').valueChanges().subscribe(categories => {
       this.products = categories;
       this.results = this.products.filter(x => x.id === this.routeParam)[0].foods;
-      this.detailResults = this.results.filter(x => x.id === productId);
+      this.detailResults = this.results.filter(x => x.name === productId);
       this.resultUpdater$.next( this.detailResults );
     });
   }
