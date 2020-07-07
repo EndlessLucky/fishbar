@@ -13,6 +13,8 @@ export class ProductService {
   results: any[] = [];
   detailResults: any[] = [];
   routeParam: string;
+  totalQuantity: number[] = [];
+  totalPrice: any = 0;
 
   public resultUpdater$: Subject<any> = new Subject<any>();
 
@@ -53,5 +55,43 @@ export class ProductService {
 
   getRouteParam(): string{
     return this.routeParam;
+  }
+
+  addToCart(product): void {
+    const a: any[] = JSON.parse(localStorage.getItem('cart_item')) || [];
+    for (let i = 0; i < a.length; i++) {
+      if (a[i].name === product.name) {
+        return;
+      }
+    }
+    a.push(product);
+    localStorage.setItem('cart_item', JSON.stringify(a));
+  }
+
+  getLocalCartProducts(): any[] {
+    const products: any[] = JSON.parse(localStorage.getItem('cart_item')) || [];
+
+    return products;
+  }
+
+  removeLocalCartProduct(product): void {
+    const products: any[] = JSON.parse(localStorage.getItem('cart_item'));
+
+    for (let i = 0; i < products.length; i++) {
+      if (products[i].name === product.name) {
+        products.splice(i, 1);
+        break;
+      }
+    }
+
+    localStorage.setItem('cart_item', JSON.stringify(products));
+  }
+
+  setItemQuantity(quantity): void{
+    this.totalQuantity = quantity;
+  }
+
+  setTotalPrice(price): void{
+    this.totalPrice = price;
   }
 }

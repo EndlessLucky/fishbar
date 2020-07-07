@@ -63,29 +63,7 @@
                             </p>
                             <p class="form-row form-row form-row-last address-field validate-required validate-postcode" id="billing_postcode_field">
                                 <label for="billing_postcode" class="">Postcode / ZIP </label>
-                                <input type="text" class="input-text " name="billing_postcode" id="billing_postcode" placeholder=""  autocomplete="postal-code" value="DFSAF@GMAIL.COM"  />
-                            </p>
-                            <div class="clear"></div>
-                            <p class="form-row form-row-wide create-account">
-                                <input class="input-checkbox" id="createaccount"  type="checkbox" name="createaccount" value="1" />
-                                <label for="createaccount" class="checkbox">Create an account?</label>
-                            </p>
-                            <div class="create-account">
-                                <p>Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-                                <p class="form-row form-row validate-required" id="account_password_field">
-                                    <label for="account_password" class="">Account password </label>
-                                    <input type="password" class="input-text " name="account_password" id="account_password" placeholder="Password"   value=""  />
-                                </p>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="woocommerce-shipping-fields">
-                            <h3>Additional Information</h3>
-                            <p class="form-row form-row notes" id="order_comments_field">
-                                <label for="order_comments" class="">Order Notes</label>
-                                <textarea name="order_comments" class="input-text " id="order_comments" placeholder="Notes about your order, e.g. special notes for delivery."    rows="2" cols="5"></textarea>
+                                <input type="text" class="input-text " name="billing_postcode" id="billing_postcode" placeholder=""  autocomplete="postal-code" value=""  />
                             </p>
                         </div>
                     </div>
@@ -100,58 +78,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="cart_item">
-                            <td class="product-name">
-                                Bacon Burger&nbsp;<strong class="product-quantity">&times; 1</strong>
-                                <dl class="variation">
-                                    <dt class="variation-Baseprice">Base price:</dt>
-                                    <dd class="variation-Baseprice">
-                                        <p><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>0.00</span></p>
-                                    </dd>
-                                    <dt class="variation-PickSizespanclasswoocommerce-Price-amountamountspanclasswoocommerce-Price-currencySymbol36span2590span">Pick Size ( <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>25.90</span> ):
-                                    </dt>
-                                    <dd class="variation-PickSizespanclasswoocommerce-Price-amountamountspanclasswoocommerce-Price-currencySymbol36span2590span">
-                                        <p>29  cm</p>
-                                    </dd>
-                                </dl>
-                            </td>
-                            <td class="product-total">
-                                        <span class="woocommerce-Price-amount amount">
-                                        <span class="woocommerce-Price-currencySymbol">&#36;</span>25.90</span>
-                            </td>
-                        </tr>
-                        <tr class="cart_item">
-                            <td class="product-name">
-                                Pepperoni Pizza&nbsp;<strong class="product-quantity">&times; 1</strong>
-                                <dl class="variation">
-                                    <dt class="variation-Baseprice">Base price:</dt>
-                                    <dd class="variation-Baseprice">
-                                        <p><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>0.00</span></p>
-                                    </dd>
-                                    <dt class="variation-PickSizespanclasswoocommerce-Price-amountamountspanclasswoocommerce-Price-currencySymbol36span2590span">Pick Size ( <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>25.90</span> ):</dt>
-                                    <dd class="variation-PickSizespanclasswoocommerce-Price-amountamountspanclasswoocommerce-Price-currencySymbol36span2590span">
-                                        <p>29  cm</p>
-                                    </dd>
-                                </dl>
-                            </td>
-                            <td class="product-total">
-                                        <span class="woocommerce-Price-amount amount">
-                                        <span class="woocommerce-Price-currencySymbol">&#36;</span>25.90</span>
-                            </td>
-                        </tr>
+                            <tr class="cart_item" *ngFor="let product of cartProducts, let i = index">
+                                <td class="product-name"> {{product.name}}&nbsp;<strong class="product-quantity">x{{productService.totalQuantity[i]}}</strong>
+                                </td>
+                                <td class="product-total">
+                                    <span class="woocommerce-Price-amount amount">
+                                    <span class="woocommerce-Price-currencySymbol">&#163;</span>{{product.price * productService.totalQuantity[i]}}</span>
+                                </td>
+                            </tr>
                         </tbody>
                         <tfoot>
-                        <tr class="cart-subtotal">
-                            <th>Subtotal</th>
-                            <td>
-                                        <span class="woocommerce-Price-amount amount">
-                                        <span class="woocommerce-Price-currencySymbol">&#36;</span>51.80</span>
-                            </td>
-                        </tr>
                         <tr class="order-total">
                             <th>Total</th>
                             <td>
-                                <strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>51.80</span></strong>
+                                <strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#163;</span>{{productService.totalPrice}}</span></strong>
                             </td>
                         </tr>
                         </tfoot>
@@ -197,7 +137,7 @@
                                 <label for="terms" class="checkbox">I&rsquo;ve read and accept the <a href="terms-and-conditions.html" target="_blank">terms &amp; conditions</a> <span class="required">*</span></label>
                                 <input type="hidden" name="terms-field" value="1" />
                             </p>
-                            <a class="button alt" [routerLink]="['/cart/cart/checkout', 'order']" style="text-align: center;">Place order</a>
+                            <a class="button alt" [routerLink]="['/cart', 'order']" style="text-align: center;">Place order</a>
                         </div>
                     </div>
                 </div>

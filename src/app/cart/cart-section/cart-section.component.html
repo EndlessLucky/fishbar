@@ -27,96 +27,40 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="cart_item">
-                        <td class="product-remove">
-                            <a href="#" class="remove" >&times;</a>
-                        </td>
-                        <td class="product-thumbnail">
-                            <a href="single-product-v1.html">
-                                <img width="180" height="180" src="assets/images/products/1.png" alt=""/>
-                            </a>
-                        </td>
-                        <td class="product-name" data-title="Product">
-                            <a href="single-product-v1.html">Bacon Burger</a>
-                            <dl class="variation">
-                                <dt class="variation-Baseprice">Base price:</dt>
-                                <dd class="variation-Baseprice">
-                                    <p><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>0.00</span></p>
-                                </dd>
-                                <dt class="variation-PickSizespanclasswoocommerce-Price-amountamountspanclasswoocommerce-Price-currencySymbol36span2590span">Pick Size ( <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>25.90</span> ):
-                                </dt>
-                                <dd class="variation-PickSizespanclasswoocommerce-Price-amountamountspanclasswoocommerce-Price-currencySymbol36span2590span">
-                                    <p>29  cm</p>
-                                </dd>
-                            </dl>
-                        </td>
-                        <td class="product-price" data-title="Price">
-                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>25.90</span>
-                        </td>
-                        <td class="product-quantity" data-title="Quantity">
-                            <div class="qty-btn">
-                                <label>Quantity</label>
-                                <div class="quantity">
-                                    <input type="number" value="1" title="Qty" class="input-text qty text"/>
+                        <tr class="cart_item" *ngFor="let product of cartProducts, let i = index">
+                            <td class="product-remove">
+                                <a [routerLink]="['/cart', 'cart']" class="remove" (click)="removeCart(product)">&times;</a>
+                            </td>
+                            <td class="product-thumbnail">
+                                <a href="single-product-v1.html">
+                                    <img width="180" height="180" src={{product.image}} alt=""/>
+                                </a>
+                            </td>
+                            <td class="product-name" data-title="Product">
+                                <p>{{product.name}}</p>
+                            </td>
+                            <td class="product-price" data-title="Price">
+                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#163;</span>{{product.price}}</span>
+                            </td>
+                            <td class="product-quantity" data-title="Quantity">
+                                <div class="qty-btn">
+                                    <label>Quantity</label>
+                                    <div class="quantity">
+                                        <input type="number" name = "quantity_{{i}}" min = "0" [(ngModel)]="productService.totalQuantity[i]"  title="Qty" class="input-text qty text" (change)="calItemPrice(product.price)"/>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="product-subtotal" data-title="Total">
-                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>25.90</span>
-                        </td>
-                    </tr>
-                    <tr class="cart_item">
-                        <td class="product-remove">
-                            <a href="#" class="remove">&times;</a>
-                        </td>
-                        <td class="product-thumbnail">
-                            <a href="single-product-v1.html">
-                                <img width="180" height="180" src="assets/images/products/2.jpg" alt="" />
-                            </a>
-                        </td>
-                        <td class="product-name" data-title="Product">
-                            <a href="single-product-v1.html">Pepperoni Pizza</a>
-                            <dl class="variation">
-                                <dt class="variation-Baseprice">Base price:</dt>
-                                <dd class="variation-Baseprice">
-                                    <p><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>0.00</span></p>
-                                </dd>
-                                <dt class="variation-PickSizespanclasswoocommerce-Price-amountamountspanclasswoocommerce-Price-currencySymbol36span2590span">Pick Size ( <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>25.90</span> ):
-                                </dt>
-                                <dd class="variation-PickSizespanclasswoocommerce-Price-amountamountspanclasswoocommerce-Price-currencySymbol36span2590span">
-                                    <p>29  cm</p>
-                                </dd>
-                            </dl>
-                        </td>
-                        <td class="product-price" data-title="Price">
-                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>25.90</span>
-                        </td>
-                        <td class="product-quantity" data-title="Quantity">
-                            <div class="qty-btn">
-                                <label>Quantity</label>
-                                <div class="quantity">
-                                    <input type="number"  value="1" title="Qty" class="input-text qty text" size="4" />
+                            </td>
+                            <td class="product-subtotal" data-title="Total">
+                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#163;</span>{{product.price * productService.totalQuantity[i]}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="actions">
+                                <div class="wc-proceed-to-checkout">
+                                    <a href="#" class="checkout-button button alt wc-forward" [routerLink]="['/cart', 'checkout']">Proceed to Checkout</a>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="product-subtotal" data-title="Total">
-                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>25.90</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" class="actions">
-                            <div class="coupon">
-                                <label for="coupon_code">Coupon:</label>
-                                <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code" />
-                                <input type="submit" class="button" name="apply_coupon" value="Apply Coupon" />
-                            </div>
-                            <input type="submit" class="button" name="update_cart" value="Update Cart" />
-                            <div class="wc-proceed-to-checkout">
-                                <a [routerLink]="['/cart/cart', 'checkout']" class="checkout-button button alt wc-forward">Proceed to Checkout</a>
-                            </div>
-                            <input type="hidden" id="_wpnonce" name="_wpnonce" value="21ca9d92f8" /><input type="hidden" name="_wp_http_referer" value="/pizzaro/cart/" />
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </form>
@@ -124,16 +68,10 @@
                 <div class="cart_totals ">
                     <h2>Cart Totals</h2>
                     <table  class="shop_table shop_table_responsive">
-                        <tr class="cart-subtotal">
-                            <th>Subtotal</th>
-                            <td data-title="Subtotal">
-                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>51.80</span>
-                            </td>
-                        </tr>
                         <tr class="order-total">
                             <th>Total</th>
                             <td data-title="Total">
-                                <strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>51.80</span></strong>
+                                <strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#163;</span>{{totalPrice}}</span></strong>
                             </td>
                         </tr>
                     </table>

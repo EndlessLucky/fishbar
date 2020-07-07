@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../core/services/product.service';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'fishbar-product-detail',
@@ -18,6 +19,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
+    public router: Router,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
@@ -34,6 +36,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     ).subscribe( results => {
       this.productDetail = results;
     });
+  }
+
+  addToCart(product): void {
+    this.productService.addToCart(product);
+    this.router.navigate(['/cart', 'cart']);
   }
 
   ngOnDestroy(): void {

@@ -10,13 +10,13 @@ const routes: Routes = [
     path: '', component: CartComponent,
     children: [
       {
-        path: ':cart', component: CartSectionComponent
+        path: 'cart', component: CartSectionComponent
       },
       {
-        path: 'cart/:checkout', component: CheckoutSectionComponent
+        path: 'checkout', component: CheckoutSectionComponent
       },
       {
-        path: 'cart/checkout/:order', component: OrderSectionComponent
+        path: 'order', component: OrderSectionComponent
       }
     ]
   }
