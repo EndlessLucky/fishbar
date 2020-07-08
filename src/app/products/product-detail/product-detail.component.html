@@ -39,12 +39,12 @@
                     </tr>
                     <tr>
                         <td class="label"><label for="select-size">Select Addon</label></td>
-                        <td class="value">
-                            <select id="select-crust" [(ngModel)]="addonPrice" class="" name="attribute_select-crust" data-attribute_name="attribute_select-crust">
-                                <option value="" *ngFor="let addon of productDetail[0].addon" [ngValue]="addon.price">{{addon.name}}</option>
-                            </select>
-                            <p>Price : {{addonPrice}}</p>
-                        </td>
+                        <div *ngFor="let addon of productDetail[0].addon let i=index">
+                            <label>
+                                <input type="checkbox" [value]="addon.price" [(ngModel)]="addonPrice" (change)="onCheckboxChange($event)" />
+                                {{addon.name}} (Pice: {{addon.price}})
+                            </label>
+                        </div>
                     </tr>
                 </tbody>
             </table>

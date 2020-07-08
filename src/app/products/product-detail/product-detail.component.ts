@@ -38,8 +38,17 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     ).subscribe( results => {
       this.productDetail = results;
       this.sizePrice = this.productDetail[0].size[0].price;
-      this.addonPrice = this.productDetail[0].addon[0].price;
+      this.addonPrice = 0;
     });
+  }
+
+  onCheckboxChange(e): void {
+    if (e.target.checked){
+      this.addonPrice += parseInt(e.target.value, 10);
+    }else{
+      this.addonPrice -= parseInt(e.target.value, 10);
+    }
+
   }
 
   addToCart(product, sizePrice, addonPrice): void {

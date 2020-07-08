@@ -10,7 +10,7 @@ import {ProductService} from '../../core/services/product.service';
 export class CartSectionComponent implements OnInit {
   cartProducts: any[] = [];
 
-  constructor(@Inject(DOCUMENT) private document: Document, private productService: ProductService) { }
+  constructor(@Inject(DOCUMENT) private document: Document, public productService: ProductService) { }
 
   ngOnInit(): void {
     this.document.body.className = 'woocommerce-cart';
