@@ -83,7 +83,7 @@
                                 </td>
                                 <td class="product-total">
                                     <span class="woocommerce-Price-amount amount">
-                                    <span class="woocommerce-Price-currencySymbol">&#163;</span>{{product.price * productService.totalQuantity[i]}}</span>
+                                    <span class="woocommerce-Price-currencySymbol">&#163;</span>{{(product.price + this.productService.sizePrice + this.productService.addonPrice) * productService.totalQuantity[i]}}</span>
                                 </td>
                             </tr>
                         </tbody>

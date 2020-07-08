@@ -14,6 +14,8 @@ import { Router } from "@angular/router";
 export class ProductDetailComponent implements OnInit, OnDestroy {
 
   productDetail: any[] = [];
+  sizePrice: any;
+  addonPrice: any;
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -35,11 +37,13 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       takeUntil(this.unsubscribeAll)
     ).subscribe( results => {
       this.productDetail = results;
+      this.sizePrice = this.productDetail[0].size[0].price;
+      this.addonPrice = this.productDetail[0].addon[0].price;
     });
   }
 
-  addToCart(product): void {
-    this.productService.addToCart(product);
+  addToCart(product, sizePrice, addonPrice): void {
+    this.productService.addToCart(product, sizePrice, addonPrice);
     this.router.navigate(['/cart', 'cart']);
   }
 

@@ -9,16 +9,17 @@ import {ProductService} from '../../core/services/product.service';
 })
 export class CartSectionComponent implements OnInit {
   cartProducts: any[] = [];
-  totalPrice: any = 0;
 
   constructor(@Inject(DOCUMENT) private document: Document, private productService: ProductService) { }
 
   ngOnInit(): void {
     this.document.body.className = 'woocommerce-cart';
     this.getCartProduct();
-    this.cartProducts.forEach((product) => {
-      this.totalPrice += product.price;
-    });
+    this.productService.totalPrice = 0;
+    for (let i = 0; i < this.cartProducts.length; i++){
+      this.productService.totalPrice += (this.cartProducts[i].price + this.productService.sizePrice + this.productService.addonPrice) * this.productService.totalQuantity[i];
+    }
+    localStorage.setItem('totalPrice', this.productService.totalPrice);
   }
 
   getCartProduct(): void {
@@ -29,12 +30,12 @@ export class CartSectionComponent implements OnInit {
   }
 
   calItemPrice(itemPrice): void {
-    this.totalPrice = 0;
+    this.productService.totalPrice = 0;
     for (let i = 0; i < this.cartProducts.length; i++){
-      this.totalPrice += this.cartProducts[i].price * this.productService.totalQuantity[i];
+      this.productService.totalPrice += (this.cartProducts[i].price + this.productService.sizePrice + this.productService.addonPrice) * this.productService.totalQuantity[i];
     }
     this.productService.setItemQuantity(this.productService.totalQuantity);
-    this.productService.setTotalPrice(this.totalPrice);
+    localStorage.setItem('totalPrice', this.productService.totalPrice);
   }
 
   removeCart(product): void{
@@ -42,11 +43,10 @@ export class CartSectionComponent implements OnInit {
 
     // Recalling
     this.getCartProduct();
-
-    this.totalPrice = 0;
+    this.productService.totalPrice = 0;
     for (let i = 0; i < this.cartProducts.length; i++){
-      this.totalPrice += this.cartProducts[i].price * this.productService.totalQuantity[i];
+      this.productService.totalPrice += (this.cartProducts[i].price + this.productService.sizePrice + this.productService.addonPrice) * this.productService.totalQuantity[i];
     }
-    this.productService.setTotalPrice(this.totalPrice);
+    localStorage.setItem('totalPrice', this.productService.totalPrice);
   }
 }

@@ -5,12 +5,14 @@ import { ProductsSectionComponent } from './products-section/products-section.co
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [ProductsComponent, ProductsSectionComponent, ProductItemComponent, ProductDetailComponent],
-  imports: [
-    CommonModule,
-    ProductsRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        ProductsRoutingModule,
+        FormsModule
+    ]
 })
 export class ProductsModule { }

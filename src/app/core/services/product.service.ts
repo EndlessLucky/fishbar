@@ -15,6 +15,9 @@ export class ProductService {
   routeParam: string;
   totalQuantity: number[] = [];
   totalPrice: any = 0;
+  sizePrice: any = 0;
+  addonPrice: any = 0;
+  cartProducts: any[] = [];
 
   public resultUpdater$: Subject<any> = new Subject<any>();
 
@@ -57,8 +60,9 @@ export class ProductService {
     return this.routeParam;
   }
 
-  addToCart(product): void {
+  addToCart(product, sizePrice, addonPrice): void {
     const a: any[] = JSON.parse(localStorage.getItem('cart_item')) || [];
+
     for (let i = 0; i < a.length; i++) {
       if (a[i].name === product.name) {
         return;
@@ -66,6 +70,8 @@ export class ProductService {
     }
     a.push(product);
     localStorage.setItem('cart_item', JSON.stringify(a));
+    this.sizePrice = sizePrice;
+    this.addonPrice = addonPrice;
   }
 
   getLocalCartProducts(): any[] {
@@ -89,9 +95,5 @@ export class ProductService {
 
   setItemQuantity(quantity): void{
     this.totalQuantity = quantity;
-  }
-
-  setTotalPrice(price): void{
-    this.totalPrice = price;
   }
 }
