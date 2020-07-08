@@ -39,10 +39,10 @@
                     </tr>
                     <tr>
                         <td class="label"><label for="select-size">Select Addon</label></td>
-                        <div *ngFor="let addon of productDetail[0].addon let i=index">
+                        <div *ngFor="let addon of productDetail[0].addon, let i=index">
                             <label>
-                                <input type="checkbox" [value]="addon.price" [(ngModel)]="addonPrice" (change)="onCheckboxChange($event)" />
-                                {{addon.name}} (Pice: {{addon.price}})
+                                <input type="checkbox" [value]="addon.price" (change)="onCheckboxChange($event)" />
+                                {{addon.name}} (Price: {{addon.price}})
                             </label>
                         </div>
                     </tr>
