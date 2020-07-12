@@ -35,10 +35,10 @@ export class ProductService {
     return this.db.list('Category').valueChanges();
   }
 
-  getProductsByCategory(id): void {
+  getProductsByCategory(categoryName): void {
     this.db.list('Category').valueChanges().subscribe(categories => {
       this.products = categories;
-      this.results = this.products.filter(x => x.id === id)[0].foods;
+      this.results = this.products.filter(x => x.name === categoryName)[0].foods;
       this.resultUpdater$.next( this.results );
     });
   }
@@ -46,7 +46,8 @@ export class ProductService {
   getProductById(productId): void {
     this.db.list('Category').valueChanges().subscribe(categories => {
       this.products = categories;
-      this.results = this.products.filter(x => x.id === this.routeParam)[0].foods;
+      this.routeParam = localStorage.getItem('routeParam');
+      this.results = this.products.filter(x => x.name === this.routeParam)[0].foods;
       this.detailResults = this.results.filter(x => x.name === productId);
       this.resultUpdater$.next( this.detailResults );
     });
@@ -63,6 +64,7 @@ export class ProductService {
   addToCart(product, sizePrice, addonPrice): void {
     const a: any[] = JSON.parse(localStorage.getItem('cart_item')) || [];
 
+    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < a.length; i++) {
       if (a[i].name === product.name) {
         return;

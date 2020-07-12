@@ -13,11 +13,12 @@ export class ProductItemComponent implements OnInit {
   routeParam: string;
 
   constructor(
-    private productService: ProductService
+    public productService: ProductService
   ) { }
 
   ngOnInit(): void {
-    this.routeParam = this.productService.getRouteParam();
+    // this.routeParam = this.productService.getRouteParam();
+    this.routeParam = localStorage.getItem('routeParam');
   }
 
 }

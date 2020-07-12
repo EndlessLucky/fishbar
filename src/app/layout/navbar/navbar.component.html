@@ -31,7 +31,7 @@
       <nav class="secondary-navigation"  aria-label="Secondary Navigation">
         <ul  class="menu">
           <li class="menu-item" *ngFor="let category of this.category">
-            <a [routerLink]="['/products', category.id]"><img src= {{category.image}} width="50" height="50"/>{{category.name}}</a>
+            <a [routerLink]="['/products', category.name]"><img src= {{category.image}} width="50" height="50"/>{{category.name}}</a>
           </li>
         </ul>
       </nav>

@@ -23,8 +23,9 @@ export class ProductsSectionComponent implements OnInit, OnDestroy {
     this.route.params.pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe(params => {
-      this.productService.getProductsByCategory(params.id);
-      this.productService.setRouteParam(params.id);
+      this.productService.getProductsByCategory(params.categoryName);
+      this.productService.setRouteParam(params.categoryName);
+      localStorage.setItem('routeParam', params.categoryName);
     });
 
     this.productService.resultUpdater$.pipe(
