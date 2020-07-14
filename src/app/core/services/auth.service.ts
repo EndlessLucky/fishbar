@@ -128,6 +128,7 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
+      postCode: user.postCode,
       address: user.address,
       phoneNumber: user.phoneNumber,
       emailVerified: user.emailVerified
@@ -152,7 +153,4 @@ export class AuthService {
       this.router.navigate(['sign-in']);
     });
   }
-
-
-
 }

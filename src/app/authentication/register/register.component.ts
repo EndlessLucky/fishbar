@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TemplateRef, ViewChild } from '@angular/core';
+
 import { User } from '../../core/services/user';
 
 @Component({
@@ -19,12 +20,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
     uid: '',
     email: '',
     displayName: '',
+    postCode: '',
     address: '',
     phoneNumber: '',
     emailVerified: false
   };
 
-  constructor(public authService: AuthService, private modalService: NgbModal) { }
+  constructor(
+    public authService: AuthService,
+    private modalService: NgbModal
+  ) { }
 
   ngOnInit(): void {
     this.authService.resultUpdater$.pipe(
@@ -45,14 +50,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
     });
   }
 
-  saveProfile(displayName, address, phoneNumber): void{
-
-    if (displayName === '' || address === '' || phoneNumber === ''){
+  saveProfile(displayName, postCode, address, phoneNumber): void{
+    if (displayName === '' || postCode === '' || address === '' || phoneNumber === ''){
       alert('Please input information');
     }else{
       this.userResult.displayName = displayName;
+      this.userResult.postCode = postCode;
       this.userResult.address = address;
       this.userResult.phoneNumber = phoneNumber;
+
       this.authService.SetUserData(this.userResult);
       this.modalService.dismissAll();
     }

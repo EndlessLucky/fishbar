@@ -24,6 +24,7 @@ export class LoginRegisterComponent implements OnInit {
     uid: '',
     email: '',
     displayName: '',
+    postCode: '',
     address: '',
     phoneNumber: '',
     emailVerified: false
@@ -84,11 +85,12 @@ export class LoginRegisterComponent implements OnInit {
     });
   }
 
-  saveProfile(displayName, address): void{
+  saveProfile(displayName,postCode, address): void{
     if (displayName === '' || address === ''){
       alert('Please input information');
     }else{
       this.userResult.displayName = displayName;
+      this.userResult.postCode = postCode;
       this.userResult.address = address;
       this.authService.SetUserData(this.userResult);
       this.modalService.dismissAll();
