@@ -53,7 +53,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   addToCart(product, sizePrice, addonPrice): void {
     this.productService.addToCart(product, sizePrice, addonPrice);
-    this.router.navigate(['/cart', 'cart']);
+
+    // this.router.navigate(['/cart', 'cart']);
   }
 
   ngOnDestroy(): void {

@@ -3,7 +3,7 @@ import { AngularFireDatabase} from '@angular/fire/database';
 import { Category } from '../enums/category.enum';
 import { BestDealProducts } from '../data/best-deal-products';
 import { Observable, of, Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +12,21 @@ export class ProductService {
   products: any[] = [];
   results: any[] = [];
   detailResults: any[] = [];
+  postCode: any[] = [];
   routeParam: string;
   totalQuantity: number[] = [];
   totalPrice: any = 0;
   sizePrice: any = 0;
   addonPrice: any = 0;
-  cartProducts: any[] = [];
+  isPostcode: boolean;
 
   public resultUpdater$: Subject<any> = new Subject<any>();
 
-  constructor(private route: ActivatedRoute,
-              private db: AngularFireDatabase) { }
+  constructor(
+    private route: ActivatedRoute,
+    private db: AngularFireDatabase,
+    public router: Router
+  ) { }
   getBestDealProducts(): Observable<any[]> {
     return this.db.list('BestDeals').valueChanges();
   }
@@ -74,6 +78,7 @@ export class ProductService {
     localStorage.setItem('cart_item', JSON.stringify(a));
     this.sizePrice = sizePrice;
     this.addonPrice = addonPrice;
+    alert('successfully added');
   }
 
   getLocalCartProducts(): any[] {
@@ -97,5 +102,19 @@ export class ProductService {
 
   setItemQuantity(quantity): void{
     this.totalQuantity = quantity;
+  }
+
+  checkPostcode(userPostcode): void{
+    const userPrefix = userPostcode.substr(0,4);
+    this.db.list('Postcode').valueChanges().subscribe(postcodes => {
+      for(let i = 0; i < postcodes.length; i++){
+        if(userPrefix === postcodes[i].prefix){
+          this.router.navigate(['/cart', 'checkout']);
+          return;
+        }
+      }
+      alert('Your area is not allowed to deliver');
+    });
+
   }
 }

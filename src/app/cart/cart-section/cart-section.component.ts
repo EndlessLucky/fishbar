@@ -1,6 +1,10 @@
 import { Component, OnInit , Inject} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import {ProductService} from '../../core/services/product.service';
+import { AuthService } from '../../core/services/auth.service';
+import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'fishbar-cart-section',
@@ -9,10 +13,19 @@ import {ProductService} from '../../core/services/product.service';
 })
 export class CartSectionComponent implements OnInit {
   cartProducts: any[] = [];
+  userPostcode: any;
+  isPostcode: any;
+  private unsubscribeAll: Subject<any> = new Subject<any>();
 
-  constructor(@Inject(DOCUMENT) private document: Document, public productService: ProductService) { }
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    public productService: ProductService,
+    private authService: AuthService,
+    public router: Router,
+  ) { }
 
   ngOnInit(): void {
+    this.userPostcode = this.authService.userData.postCode;
     this.document.body.className = 'woocommerce-cart';
     this.getCartProduct();
     this.productService.totalPrice = 0;
@@ -48,5 +61,9 @@ export class CartSectionComponent implements OnInit {
       this.productService.totalPrice += (this.cartProducts[i].price + this.productService.sizePrice + this.productService.addonPrice) * this.productService.totalQuantity[i];
     }
     localStorage.setItem('totalPrice', this.productService.totalPrice);
+  }
+
+  checkOut(): void {
+    this.productService.checkPostcode(this.userPostcode);
   }
 }
