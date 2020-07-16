@@ -4,7 +4,7 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFireDatabase} from '@angular/fire/database';
 import { Router } from "@angular/router";
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -55,17 +55,8 @@ export class AuthService {
     });
   }
 
-  phoneLogin(phoneNumber): string{
-    this.db.list('Users').valueChanges().subscribe(users => {
-      this.users = users;
-      this.userData = this.users.filter(x => x.phoneNumber === phoneNumber)[0];
-      if (this.userData !== undefined){
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        this.router.navigate(['dashboard']);
-        return;
-      }
-    });
-    return 'register';
+  phoneLogin(): Observable<any>{
+    return this.db.list('Users').valueChanges();
   }
 
   // Sign up with email/password

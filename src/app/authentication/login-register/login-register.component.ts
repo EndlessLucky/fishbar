@@ -8,6 +8,7 @@ import { User } from '../../core/services/user';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CountryISO } from 'projects/ngx-intl-tel-input/src/lib/enums/country-iso.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fishbar-login-register',
@@ -41,7 +42,12 @@ export class LoginRegisterComponent implements OnInit {
     CountryISO.UnitedKingdom
   ];
 
-  constructor(public authService: AuthService, private win: WindowService, private modalService: NgbModal) { }
+  constructor(
+    public authService: AuthService,
+    private win: WindowService,
+    private modalService: NgbModal,
+    public router: Router
+  ) { }
 
   ngOnInit(): void {
     this.windowRef = this.win.windowRef;
@@ -67,13 +73,20 @@ export class LoginRegisterComponent implements OnInit {
     this.windowRef.confirmationResult
       .confirm(this.verificationCode)
       .then( result => {
-        this.authService.phoneLogin(result.user.phoneNumber)
-        this.userResult.uid = result.user.uid;
-        this.userResult.email = 'user@user.com';
-        this.userResult.emailVerified = result.user.emailVerified;
-        this.userResult.phoneNumber = result.user.phoneNumber;
-        this.modalService.open(this.content);
-
+        this.authService.phoneLogin().subscribe(users => {
+          this.users = users;
+          this.userData = this.users.filter(x => x.phoneNumber === result.user.phoneNumber)[0];
+          if (this.userData !== undefined){
+            localStorage.setItem('user', JSON.stringify(this.userData));
+            this.router.navigate(['dashboard']);
+          }else{
+            this.userResult.uid = result.user.uid;
+            this.userResult.email = 'user@user.com';
+            this.userResult.emailVerified = result.user.emailVerified;
+            this.userResult.phoneNumber = result.user.phoneNumber;
+            this.modalService.open(this.content);
+          }
+        });
       })
       .catch( error => console.log(error, 'Incorrect code entered?'));
   }
