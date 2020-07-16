@@ -23,7 +23,6 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.authService.userData);
     if (this.authService.isLoggedIn){
       this.form.setValue({
         displayName: this.authService.userData.displayName,
@@ -35,4 +34,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  changeProfile(): void{
+    this.authService.changeProfile(this.form.value);
+  }
 }

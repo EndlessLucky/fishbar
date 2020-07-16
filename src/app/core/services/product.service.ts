@@ -107,8 +107,9 @@ export class ProductService {
   checkPostcode(userPostcode): void{
     const userPrefix = userPostcode.substr(0,4);
     this.db.list('Postcode').valueChanges().subscribe(postcodes => {
-      for(let i = 0; i < postcodes.length; i++){
-        if(userPrefix === postcodes[i].prefix){
+      this.postCode = postcodes;
+      for(let i = 0; i < this.postCode.length; i++){
+        if(userPrefix === this.postCode[i].prefix){
           this.router.navigate(['/cart', 'checkout']);
           return;
         }

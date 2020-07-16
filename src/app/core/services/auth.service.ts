@@ -15,6 +15,7 @@ export class AuthService {
   public resultUpdater$: Subject<any> = new Subject<any>();
   users: any[] = [];
   results: any[] = [];
+  profileId: any;
 
   constructor(
     private db: AngularFireDatabase,
@@ -41,6 +42,19 @@ export class AuthService {
       });
   }
 
+  changeProfile(profile): void{
+    const ref = this.db.database.ref('Users');
+    var _self = this;
+    ref.orderByChild('displayName').equalTo('test3').on("value", function(snapshot) {
+      snapshot.forEach(child => {
+        _self.db.object("Users/" + child.key).update(profile).then(r => {
+          console.log("updated successfully");
+        });
+      }
+      );
+    });
+  }
+
   phoneLogin(phoneNumber): string{
     this.db.list('Users').valueChanges().subscribe(users => {
       this.users = users;
@@ -48,12 +62,10 @@ export class AuthService {
       if (this.userData !== undefined){
         localStorage.setItem('user', JSON.stringify(this.userData));
         this.router.navigate(['dashboard']);
-        return 'logged';
-      }else{
-        return 'register';
+        return;
       }
     });
-    return 'cancel';
+    return 'register';
   }
 
   // Sign up with email/password

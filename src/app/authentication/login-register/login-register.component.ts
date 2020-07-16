@@ -55,24 +55,25 @@ export class LoginRegisterComponent implements OnInit {
     const appVerifier = this.windowRef.recaptchaVerifier;
     const num = phoneNumber.e164Number;
 
-    if (this.authService.phoneLogin(num) !== 'logged'){
-      firebase.auth().signInWithPhoneNumber(num, appVerifier)
-        .then(result => {
-          this.windowRef.confirmationResult = result;
-        })
-        .catch( error => alert(error) );
-    }
+    firebase.auth().signInWithPhoneNumber(num, appVerifier)
+      .then(result => {
+        this.windowRef.confirmationResult = result;
+      })
+      .catch( error => alert(error) );
+
   }
 
   verifyLoginCode(): void {
     this.windowRef.confirmationResult
       .confirm(this.verificationCode)
       .then( result => {
+        this.authService.phoneLogin(result.user.phoneNumber)
         this.userResult.uid = result.user.uid;
         this.userResult.email = 'user@user.com';
         this.userResult.emailVerified = result.user.emailVerified;
         this.userResult.phoneNumber = result.user.phoneNumber;
         this.modalService.open(this.content);
+
       })
       .catch( error => console.log(error, 'Incorrect code entered?'));
   }
