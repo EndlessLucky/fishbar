@@ -67,24 +67,33 @@ export class ProductService {
 
   addToCart(product, sizePrice, addonPrice): void {
     const a: any[] = JSON.parse(localStorage.getItem('cart_item')) || [];
-
+    console.log(a);
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < a.length; i++) {
       if (a[i].name === product.name) {
-        return;
+        if(a[i].addon === undefined && a[i].size === undefined){
+          console.log('same name');
+          return;
+        }
       }
     }
     a.push(product);
     localStorage.setItem('cart_item', JSON.stringify(a));
-    this.sizePrice = sizePrice;
-    this.addonPrice = addonPrice;
+    const itemPrice = product.price+sizePrice+addonPrice;
+    const b: any[] = JSON.parse(localStorage.getItem('item_price')) || [];
+    b.push(itemPrice);
+    localStorage.setItem('item_price', JSON.stringify(b));
     alert('successfully added');
   }
 
   getLocalCartProducts(): any[] {
     const products: any[] = JSON.parse(localStorage.getItem('cart_item')) || [];
-
     return products;
+  }
+
+  getItemPrice(): any[] {
+    const price: any[] = JSON.parse(localStorage.getItem('item_price')) || [];
+    return price;
   }
 
   removeLocalCartProduct(product): void {
@@ -116,6 +125,9 @@ export class ProductService {
       }
       alert('Your area is not allowed to deliver');
     });
+  }
 
+  clearCart(): void{
+    localStorage.clear();
   }
 }

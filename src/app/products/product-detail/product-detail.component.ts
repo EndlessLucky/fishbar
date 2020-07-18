@@ -48,7 +48,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }else{
       this.addonPrice -= parseInt(e.target.value, 10);
     }
-
   }
 
   addToCart(product, sizePrice, addonPrice): void {

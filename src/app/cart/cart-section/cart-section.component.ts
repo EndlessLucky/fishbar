@@ -13,8 +13,8 @@ import { Subject } from 'rxjs';
 })
 export class CartSectionComponent implements OnInit {
   cartProducts: any[] = [];
+  itemPrice: any[] = [];
   userPostcode: any;
-  isPostcode: any;
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -28,9 +28,10 @@ export class CartSectionComponent implements OnInit {
     this.userPostcode = this.authService.userData.postCode;
     this.document.body.className = 'woocommerce-cart';
     this.getCartProduct();
+    this.getItemPrice();
     this.productService.totalPrice = 0;
     for (let i = 0; i < this.cartProducts.length; i++){
-      this.productService.totalPrice += (this.cartProducts[i].price + this.productService.sizePrice + this.productService.addonPrice) * this.productService.totalQuantity[i];
+      this.productService.totalPrice += this.itemPrice[i] * this.productService.totalQuantity[i];
     }
     localStorage.setItem('totalPrice', this.productService.totalPrice);
   }
@@ -42,10 +43,14 @@ export class CartSectionComponent implements OnInit {
     });
   }
 
+  getItemPrice(): void {
+    this.itemPrice = this.productService.getItemPrice();
+  }
+
   calItemPrice(itemPrice): void {
     this.productService.totalPrice = 0;
     for (let i = 0; i < this.cartProducts.length; i++){
-      this.productService.totalPrice += (this.cartProducts[i].price + this.productService.sizePrice + this.productService.addonPrice) * this.productService.totalQuantity[i];
+      this.productService.totalPrice += (this.itemPrice[i]) * this.productService.totalQuantity[i];
     }
     this.productService.setItemQuantity(this.productService.totalQuantity);
     localStorage.setItem('totalPrice', this.productService.totalPrice);

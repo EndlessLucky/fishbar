@@ -5,6 +5,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFireDatabase} from '@angular/fire/database';
 import { Router } from "@angular/router";
 import { Observable, Subject } from 'rxjs';
+import { ProductService } from './product.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class AuthService {
     private db: AngularFireDatabase,
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
+    private productService: ProductService
   ) {
     this.userData = JSON.parse(localStorage.getItem('user'));
   }
@@ -151,8 +153,10 @@ export class AuthService {
 
   // Sign out
   SignOut(): any {
+
     return this.afAuth.signOut().then(() => {
-      localStorage.removeItem('user');
+      localStorage.clear();
+      this.productService.clearCart();
       this.router.navigate(['sign-in']);
     });
   }
