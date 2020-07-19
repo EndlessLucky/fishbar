@@ -14,56 +14,33 @@
 <div id="post-9" class="post-9 page type-page status-publish hentry">
     <div class="entry-content">
         <div class="woocommerce">
-            <form name="checkout"  class="checkout woocommerce-checkout" action="#" enctype="multipart/form-data">
+            <form name="checkout"  class="checkout woocommerce-checkout" enctype="multipart/form-data" [formGroup]="form">
                 <div class="col2-set" id="customer_details">
                     <div class="col-1">
                         <div class="woocommerce-billing-fields">
                             <h3>Billing Details</h3>
-                            <p class="form-row form-row form-row-first validate-required" id="billing_first_name_field">
-                                <label for="billing_first_name" class="">First Name </label>
-                                <input type="text" class="input-text " name="billing_first_name" id="billing_first_name" placeholder=""  autocomplete="given-name" value=""  />
+                            <p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
+                                <label>Username <span class="required">*</span></label>
+                                <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" formControlName="displayName"/>
                             </p>
-                            <p class="form-row form-row form-row-last validate-required" id="billing_last_name_field">
-                                <label for="billing_last_name" class="">Last Name </label>
-                                <input type="text" class="input-text " name="billing_last_name" id="billing_last_name" placeholder=""  autocomplete="family-name" value=""  />
+                            <p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
+                                <label>Email <span class="required">*</span></label>
+                                <input type="email" class="woocommerce-Input woocommerce-Input--text input-text" formControlName="email"/>
                             </p>
-                            <div class="clear"></div>
-                            <p class="form-row form-row form-row-wide" id="billing_company_field">
-                                <label for="billing_company" class="">Company Name</label>
-                                <input type="text" class="input-text " name="billing_company" id="billing_company" placeholder=""  autocomplete="organization" value=""  />
+                            <p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
+                                <label>Phone number <span class="required">*</span></label>
+                                <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" formControlName="phoneNumber"/>
                             </p>
-                            <p class="form-row form-row form-row-first validate-required validate-email" id="billing_email_field">
-                                <label for="billing_email" class="">Email Address </label>
-                                <input type="email" class="input-text " name="billing_email" id="billing_email" placeholder=""  autocomplete="email" value=""  />
+                            <p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
+                                <label>Postcode <span class="required">*</span></label>
+                                <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" formControlName="postCode"/>
                             </p>
-                            <p class="form-row form-row form-row-last validate-required validate-phone" id="billing_phone_field">
-                                <label for="billing_phone" class="">Phone </label>
-                                <input type="tel" class="input-text " name="billing_phone" id="billing_phone" placeholder=""  autocomplete="tel" value=""  />
+                            <p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
+                                <label>Address <span class="required">*</span></label>
+                                <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" formControlName="address"/>
                             </p>
-                            <div class="clear"></div>
-                            <p class="form-row form-row form-row-wide address-field update_totals_on_change validate-required" id="billing_country_field">
-                                <label for="billing_country" class="">Country </label>
-                                <input type="text" value="" placeholder="" id="billing_country" name="billing_phone" class="input-text ">
-                            </p>
-                            <div class="clear"></div>
-                            <p class="form-row form-row form-row-wide address-field validate-required" id="billing_address_1_field">
-                                <label for="billing_address_1" class="">Address </label>
-                                <input type="text" class="input-text " name="billing_address_1" id="billing_address_1" placeholder="Street address"  autocomplete="address-line1" value=""  />
-                            </p>
-                            <p class="form-row form-row form-row-wide address-field" id="billing_address_2_field">
-                                <input type="text" class="input-text " name="billing_address_2" id="billing_address_2" placeholder="Apartment, suite, unit etc. (optional)"  autocomplete="address-line2" value=""  />
-                            </p>
-                            <p class="form-row form-row form-row-wide address-field validate-required" id="billing_city_field">
-                                <label for="billing_city" class="">Town / City </label>
-                                <input type="text" class="input-text " name="billing_city" id="billing_city" placeholder=""  autocomplete="address-level2" value=""  />
-                            </p>
-                            <p class="form-row form-row form-row-first address-field validate-required validate-state" id="billing_state_field">
-                                <label for="billing_state" class="">State / County </label>
-                                <input type="text" value="" placeholder="" id="billing_state" name="billing_phone" class="input-text ">
-                            </p>
-                            <p class="form-row form-row form-row-last address-field validate-required validate-postcode" id="billing_postcode_field">
-                                <label for="billing_postcode" class="">Postcode / ZIP </label>
-                                <input type="text" class="input-text " name="billing_postcode" id="billing_postcode" placeholder=""  autocomplete="postal-code" value=""  />
+                            <p class="woocomerce-FormRow form-row">
+                                <input type="button" class="woocommerce-Button button"  value="Save changes"/>
                             </p>
                         </div>
                     </div>

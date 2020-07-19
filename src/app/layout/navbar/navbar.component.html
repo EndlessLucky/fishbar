@@ -11,20 +11,24 @@
       <nav id="site-navigation" class="main-navigation"  aria-label="Primary Navigation">
         <div class="primary-navigation">
           <ul id="menu-main-menu" class="menu nav-menu" aria-expanded="false">
-            <li class="menu-item" *ngIf="authService.isLoggedIn"><a>Hello, {{authService.userData.displayName}}</a></li>
-            <li class="menu-item" *ngIf="authService.isLoggedIn"><a [routerLink]="['/account', 'profile']">My Account</a></li>
-            <li class="menu-item" *ngIf="authService.isLoggedIn"><a [routerLink]="['/cart', 'checkout']">My Orders</a></li>
-            <li class="menu-item" ><a [routerLink]="['/contact', 'main']">Contact Us</a></li>
-            <li class="menu-item" (click)="authService.SignOut()" *ngIf="authService.isLoggedIn"><a href="">Log out</a></li>
-            <li class="menu-item" *ngIf="!authService.isLoggedIn" ><a [routerLink]="['/auth', 'login']">Log in</a></li>
+            <li class="menu-item" *ngIf="authService.isLoggedIn"><a class="a-item">Hello, {{authService.userData.displayName}}</a></li>
+            <li class="menu-item" *ngIf="authService.isLoggedIn"><a class="a-item" [routerLink]="['/account', 'profile']">My Account</a></li>
+            <li class="menu-item" *ngIf="authService.isLoggedIn"><a class="a-item" [routerLink]="['/cart', 'checkout']">My Orders</a></li>
+            <li class="menu-item" ><a class="a-item" [routerLink]="['/contact', 'main']">Contact Us</a></li>
+            <li class="menu-item" (click)="authService.SignOut()" *ngIf="authService.isLoggedIn"><a class="a-item" href="">Log out</a></li>
+            <li class="menu-item" *ngIf="!authService.isLoggedIn" ><a class="a-item" [routerLink]="['/auth', 'login']">Log in</a></li>
           </ul>
         </div>
       </nav>
-      <div class="site-header-cart-v2 menu" style="width: fit-content">
+      <div class="header-phone-numbers">
+        <span class="intro-text">Call and Order in London</span>
+        <span id="city-phone-number-label" class="phone-number">54 548 779 654</span>
+      </div>
+      <div class="site-header-cart-v2 menu" style="width: 210px">
         <div class="cart-content">
           <a [routerLink]="['/cart', 'cart']" title="View your shopping cart">
             <i class="po po-scooter"></i>
-            <span>Cart</span>
+            <span>Go to Your Cart</span>
           </a>
         </div>
       </div>

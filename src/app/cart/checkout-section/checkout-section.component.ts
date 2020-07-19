@@ -3,6 +3,8 @@ import { DatePipe, DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 
 import {ProductService} from '../../core/services/product.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'fishbar-checkout-section',
@@ -14,16 +16,35 @@ export class CheckoutSectionComponent implements OnInit {
   itemPrice: any[] = [];
   today: any;
 
+  form: FormGroup = this.fb.group({
+    displayName: ['', Validators.required],
+    email: ['', Validators.required],
+    phoneNumber: ['', Validators.required],
+    postCode: ['', Validators.required],
+    address: ['', Validators.required]
+  });
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     public productService: ProductService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
     this.document.body.className = 'woocommerce-checkout';
     this.getCartProduct();
     this.getItemPrice();
+    if (this.authService.isLoggedIn){
+      this.form.setValue({
+        displayName: this.authService.userData.displayName,
+        email: this.authService.userData.email,
+        phoneNumber: this.authService.userData.phoneNumber,
+        postCode: this.authService.userData.postCode,
+        address: this.authService.userData.address
+      });
+    }
   }
 
   getCartProduct(): void {
