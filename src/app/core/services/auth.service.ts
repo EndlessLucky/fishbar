@@ -45,16 +45,18 @@ export class AuthService {
   }
 
   changeProfile(profile): void{
+    localStorage.setItem('user', JSON.stringify(profile));
     const ref = this.db.database.ref('Users');
     var _self = this;
-    ref.orderByChild('displayName').equalTo('test3').on("value", function(snapshot) {
+    ref.orderByChild('displayName').equalTo(profile.displayName).on("value", function(snapshot) {
       snapshot.forEach(child => {
         _self.db.object("Users/" + child.key).update(profile).then(r => {
-          console.log("updated successfully");
-        });
-      }
-      );
+
+          return;
+        })
+      });
     });
+    alert("updated successfully");
   }
 
   phoneLogin(): Observable<any>{
