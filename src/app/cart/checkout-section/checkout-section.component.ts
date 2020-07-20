@@ -58,11 +58,15 @@ export class CheckoutSectionComponent implements OnInit {
   placeOrder(): void{
     this.today = new Date();
     const shopTime = new DatePipe('en-Us').transform(this.today, 'HH', 'GMT+2');
-    console.log(shopTime);
-    if(parseInt(shopTime,10) >= 10 && parseInt(shopTime,10) <= 22){
-      this.router.navigate(['/cart', 'order']);
+
+    if(this.productService.totalPrice < 10){
+      alert('Please order more items');
     }else{
-     alert('Shop is closed.Please try again tomorrow');
+      if(parseInt(shopTime,10) >= 10 && parseInt(shopTime,10) <= 22){
+        this.router.navigate(['/cart', 'order']);
+      }else{
+        alert('Shop is closed.Please try again tomorrow');
+      }
     }
   }
 }
