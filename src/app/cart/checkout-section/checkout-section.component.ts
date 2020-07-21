@@ -15,6 +15,7 @@ export class CheckoutSectionComponent implements OnInit {
   cartProducts: any[] = [];
   itemPrice: any[] = [];
   today: any;
+  postAddress: any[] = null;
 
   form: FormGroup = this.fb.group({
     displayName: ['', Validators.required],
@@ -53,6 +54,12 @@ export class CheckoutSectionComponent implements OnInit {
 
   getItemPrice(): void {
     this.itemPrice = this.productService.getItemPrice();
+  }
+
+  searchAddress(): void {
+    this.authService.searchAddress().subscribe(res =>{
+      this.postAddress = res.addresses;
+    });
   }
 
   placeOrder(): void{

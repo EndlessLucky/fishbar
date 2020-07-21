@@ -8,12 +8,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AsyncPipe } from '@angular/common';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { HttpClientModule } from '@angular/common/http';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { LayoutModule } from './layout/layout.module';
 import { AppComponent } from './app.component';
 import { MessagingService } from './core/services/messaging.service';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { MessagingService } from './core/services/messaging.service';
     AngularFireMessagingModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [MessagingService, AsyncPipe],
   bootstrap: [AppComponent]

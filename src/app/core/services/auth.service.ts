@@ -5,7 +5,10 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFireDatabase} from '@angular/fire/database';
 import { Router } from "@angular/router";
 import { Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
 import { ProductService } from './product.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +26,8 @@ export class AuthService {
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
-    private productService: ProductService
+    private productService: ProductService,
+    private http: HttpClient
   ) {
     this.userData = JSON.parse(localStorage.getItem('user'));
   }
@@ -161,5 +165,10 @@ export class AuthService {
       this.productService.clearCart();
       this.router.navigate(['sign-in']);
     });
+  }
+
+  searchAddress(): any {
+    const configUrl = 'https://api.getAddress.io/find/' + this.userData.postCode + '?api-key=gyuO8uzfdUCky3keqgE8KQ27336';
+    return this.http.get(configUrl);
   }
 }
