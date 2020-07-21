@@ -21,6 +21,7 @@ export class AuthService {
   users: any[] = [];
   results: any[] = [];
   profileId: any;
+  orders: any[] = [];
 
   constructor(
     private db: AngularFireDatabase,
@@ -172,14 +173,7 @@ export class AuthService {
     alert("updated successfully");
   }
 
-  removeOrder( ref ){
-    return new Promise((resolve, reject) => {
-
-    })
-  }
-
   async storeOrder(cartProducts, itemPrice, totalQuantity) {
-    let flag = false;
     const newOrder = {
       displayName: this.userData.displayName,
       cartProducts: cartProducts,
@@ -189,6 +183,7 @@ export class AuthService {
     const existingOrder = await this.db.list('Order', ref => ref.orderByChild('displayName').equalTo(this.userData.displayName))
       .snapshotChanges()
       .pipe(first(), map(res => res && res.length ? res[0] : null)).toPromise();
+
     if (existingOrder) {
       try {
         const res = await this.db.object(`Order/${existingOrder.key}`).update(newOrder);
@@ -202,20 +197,15 @@ export class AuthService {
     }
   }
 
-  private removeExistingOrder(): Promise<boolean> {
-    return new Promise<any>((resolve) => {
-      const ref = this.db.database.ref('Order');
-
-      ref.orderByChild('displayName').equalTo(this.userData.displayName).on('value',async (snapshot) => {
-        snapshot.forEach(child => {
-          this.db.object('Order/' + child.key).remove().then((res) => {
-            resolve(true);
-          }).catch((e) => {
-            resolve(false);
-          });
-        });
-      });
+  reorder(): void {
+    this.db.list('Order').valueChanges().subscribe(orders => {
+      this.orders = orders;
+      this.results = this.orders.filter(x => x.displayName === this.userData.displayName);
+      console.log(this.results);
+      localStorage.setItem('cart_item', JSON.stringify(this.results[0].cartProducts));
+      localStorage.setItem('item_price', JSON.stringify(this.results[0].itemPrice));
+      localStorage.setItem('total_quantity', JSON.stringify(this.results[0].totalQuantity));
+      this.router.navigate(['cart', 'cart']);
     });
   }
-
 }

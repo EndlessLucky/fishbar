@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ProductService } from '../../core/services/product.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'fishbar-myorder-section',
@@ -15,7 +16,8 @@ export class MyorderSectionComponent implements OnInit {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    public productService: ProductService
+    public productService: ProductService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +40,6 @@ export class MyorderSectionComponent implements OnInit {
   }
 
   reorder(): void {
-
+    this.authService.reorder();
   }
 }
