@@ -8,7 +8,7 @@
             <div class="kc-css-126640 kc_shortcode kc_wrap_instagram  kc_ins_col_6">
               <ul class="row">
                 <li class="col-md-2 col-sm-2 col-lg-2 col-xs-4" *ngFor="let item of this.populars">
-                  <img alt="" src={{item.image}}>
+                  <img alt="" src={{item.image}} [routerLink]="['/products/', 'populars', item.name]">
                 </li>
               </ul>
             </div>

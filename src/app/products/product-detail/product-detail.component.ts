@@ -30,14 +30,26 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.route.params.pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe(params => {
-      this.productService.getProductById(params.productId);
+      console.log(params.id);
+      if (params.id === 'bestdeals'){
+        this.productService.getBestDealById(params.productId);
+      }else if (params.id === 'populars'){
+        this.productService.getPopularById(params.productId);
+      }else{
+        this.productService.getProductById(params.productId);
+      }
+
     });
 
     this.productService.resultUpdater$.pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe( results => {
       this.productDetail = results;
-      this.sizePrice = this.productDetail[0].size[0].price;
+      if(this.productDetail[0].size === undefined){
+        this.sizePrice = 0;
+      }else{
+        this.sizePrice = this.productDetail[0].size[0].price;
+      }
       this.addonPrice = 0;
     });
   }

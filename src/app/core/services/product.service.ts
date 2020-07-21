@@ -47,6 +47,22 @@ export class ProductService {
     });
   }
 
+  getBestDealById(productId): void{
+    this.db.list('BestDeals').valueChanges().subscribe(categories => {
+      this.products = categories;
+      this.results = this.products.filter(x => x.name === productId);
+      this.resultUpdater$.next( this.results );
+    });
+  }
+
+  getPopularById(productId): void{
+    this.db.list('MostPopular').valueChanges().subscribe(categories => {
+      this.products = categories;
+      this.results = this.products.filter(x => x.name === productId);
+      this.resultUpdater$.next( this.results );
+    });
+  }
+
   getProductById(productId): void {
     this.db.list('Category').valueChanges().subscribe(categories => {
       this.products = categories;

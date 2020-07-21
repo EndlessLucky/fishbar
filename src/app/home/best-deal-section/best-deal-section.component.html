@@ -1,8 +1,8 @@
 <div class="tiles">
   <div class="row">
     <div class="col-xs-12 col-sm-6">
-      <div class="banner top-left" >
-        <a href="#">
+      <div class="banner top-left">
+        <a [routerLink]="['/products/', 'bestdeals', bestdeals[0].name]">
           <div class="banner-bg" style="background-size: cover; background-position: center center; background-image: url({{bestdeals[0].image}}); height: 442px;">
             <div class="caption">
               <h3 class="title">{{bestdeals[0].name}}</h3>
@@ -15,7 +15,7 @@
       <div class="banners">
         <div class="row">
           <div class="banner col-sm-6 top-right" >
-            <a href="#">
+            <a [routerLink]="['/products/', 'bestdeals', bestdeals[1].name]">
               <div class="banner-bg" style="background-size: cover; background-position: center center; background-image: url({{bestdeals[1].image}}); height: 210px;">
                 <div class="caption">
                   <h3 class="title">{{bestdeals[1].name}}</h3>
@@ -24,7 +24,7 @@
             </a>
           </div>
           <div class="banner col-sm-6 top-right" >
-            <a href="#">
+            <a [routerLink]="['/products/', 'bestdeals', bestdeals[2].name]">
               <div class="banner-bg" style="background-size: cover; background-position: center center; background-image: url({{bestdeals[2].image}}); height: 210px;">
                 <div class="caption">
                   <h3 class="title">{{bestdeals[2].name}}</h3>
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="banner center" >
-        <a href="#">
+        <a [routerLink]="['/products/', 'bestdeals', bestdeals[3].name]">
           <div class="banner-bg" style="background-size: cover; background-position: center center; background-image: url({{bestdeals[3].image}}); height: 210px;">
             <div class="caption">
               <h3 class="title">{{bestdeals[3].name}}</h3>

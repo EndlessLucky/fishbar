@@ -28,7 +28,7 @@
         <form class="variations_form cart"  enctype='multipart/form-data' data-product_id="116" >
             <table class="variations" >
                 <tbody>
-                    <tr>
+                    <tr *ngIf="productDetail[0].size !== undefined">
                         <td class="label"><label for="select-size">Select Size</label></td>
                         <td class="value">
                             <select id="select-size" [(ngModel)]="sizePrice" class="" name="attribute_select-size" data-attribute_name="attribute_select-size">
@@ -37,7 +37,7 @@
                             <p>Price : {{sizePrice}}</p>
                         </td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="productDetail[0].addon !== undefined">
                         <td class="label"><label for="select-size">Select Addon</label></td>
                         <div *ngFor="let addon of productDetail[0].addon, let i=index">
                             <label>
