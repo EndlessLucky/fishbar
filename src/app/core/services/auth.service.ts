@@ -171,4 +171,16 @@ export class AuthService {
     const configUrl = 'https://api.getAddress.io/find/' + this.userData.postCode + '?api-key=gyuO8uzfdUCky3keqgE8KQ27336';
     return this.http.get(configUrl);
   }
+
+  storeOrder(cartProducts, itemPrice, totalQuantity): void{
+    const newOrder = {
+      displayName: this.userData.displayName,
+      cartProducts: cartProducts,
+      itemPrice: itemPrice,
+      totalQuantity: totalQuantity
+    };
+
+    const userRef = this.db.list('Order');
+    userRef.push(newOrder);
+  }
 }

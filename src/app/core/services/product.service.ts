@@ -4,6 +4,7 @@ import { Category } from '../enums/category.enum';
 import { BestDealProducts } from '../data/best-deal-products';
 import { Observable, of, Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -133,8 +134,6 @@ export class ProductService {
     localStorage.setItem('cart_item', JSON.stringify(products));
   }
 
-
-
   checkPostcode(userPostcode): void{
     const userPrefix = userPostcode.substr(0,4);
     this.db.list('Postcode').valueChanges().subscribe(postcodes => {
@@ -152,4 +151,6 @@ export class ProductService {
   clearCart(): void{
     localStorage.clear();
   }
+
+
 }

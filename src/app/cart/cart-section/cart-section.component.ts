@@ -49,7 +49,6 @@ export class CartSectionComponent implements OnInit {
 
   getTotalQuantity(): void{
     this.totalQuantity = this.productService.getTotalQuantity();
-    console.log(this.totalQuantity);
     if(this.totalQuantity.length === 0){
       this.cartProducts.forEach((product) => {
         this.totalQuantity.push(1);
