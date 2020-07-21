@@ -30,7 +30,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.route.params.pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe(params => {
-      console.log(params.id);
       if (params.id === 'bestdeals'){
         this.productService.getBestDealById(params.productId);
       }else if (params.id === 'populars'){

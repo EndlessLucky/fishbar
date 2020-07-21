@@ -63,11 +63,11 @@
                         </thead>
                         <tbody>
                             <tr class="cart_item" *ngFor="let product of cartProducts, let i = index">
-                                <td class="product-name"> {{product.name}}&nbsp;<strong class="product-quantity">x{{productService.totalQuantity[i]}}</strong>
+                                <td class="product-name"> {{product.name}}&nbsp;<strong class="product-quantity">x{{this.totalQuantity[i]}}</strong>
                                 </td>
                                 <td class="product-total">
                                     <span class="woocommerce-Price-amount amount">
-                                    <span class="woocommerce-Price-currencySymbol">&#163;</span>{{this.itemPrice[i] * productService.totalQuantity[i]}}</span>
+                                    <span class="woocommerce-Price-currencySymbol">&#163;</span>{{this.itemPrice[i] * this.totalQuantity[i]}}</span>
                                 </td>
                             </tr>
                         </tbody>

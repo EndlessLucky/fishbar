@@ -46,12 +46,12 @@
                                 <div class="qty-btn">
                                     <label>Quantity</label>
                                     <div class="quantity">
-                                        <input type="number" name = "quantity_{{i}}" min = "0" [(ngModel)]="productService.totalQuantity[i]"  title="Qty" class="input-text qty text" (change)="calItemPrice(product.price)"/>
+                                        <input type="number" name = "quantity_{{i}}" min = "0" [(ngModel)]="this.totalQuantity[i]"  title="Qty" class="input-text qty text" (change)="calItemPrice(product.price)"/>
                                     </div>
                                 </div>
                             </td>
                             <td class="product-subtotal" data-title="Total">
-                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#163;</span>{{this.itemPrice[i] * productService.totalQuantity[i]}}</span>
+                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#163;</span>{{this.itemPrice[i] * this.totalQuantity[i]}}</span>
                             </td>
                         </tr>
                         <tr>

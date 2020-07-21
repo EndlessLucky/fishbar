@@ -16,6 +16,7 @@ export class CheckoutSectionComponent implements OnInit {
   itemPrice: any[] = [];
   today: any;
   postAddress: any[] = null;
+  totalQuantity: number[] = [];
 
   form: FormGroup = this.fb.group({
     displayName: ['', Validators.required],
@@ -37,6 +38,7 @@ export class CheckoutSectionComponent implements OnInit {
     this.document.body.className = 'woocommerce-checkout';
     this.getCartProduct();
     this.getItemPrice();
+    this.getTotalQuantity();
     if (this.authService.isLoggedIn){
       this.form.setValue({
         displayName: this.authService.userData.displayName,
@@ -54,6 +56,10 @@ export class CheckoutSectionComponent implements OnInit {
 
   getItemPrice(): void {
     this.itemPrice = this.productService.getItemPrice();
+  }
+
+  getTotalQuantity(): void{
+    this.totalQuantity = this.productService.getTotalQuantity();
   }
 
   searchAddress(): void {

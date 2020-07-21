@@ -13,8 +13,8 @@ export class ProductService {
   results: any[] = [];
   detailResults: any[] = [];
   postCode: any[] = [];
-  routeParam: string;
   totalQuantity: number[] = [];
+  routeParam: string;
   totalPrice: any = 0;
   sizePrice: any = 0;
   addonPrice: any = 0;
@@ -83,12 +83,10 @@ export class ProductService {
 
   addToCart(product, sizePrice, addonPrice): void {
     const a: any[] = JSON.parse(localStorage.getItem('cart_item')) || [];
-    console.log(a);
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < a.length; i++) {
       if (a[i].name === product.name) {
         if(a[i].addon === undefined && a[i].size === undefined){
-          console.log('same name');
           return;
         }
       }
@@ -112,6 +110,16 @@ export class ProductService {
     return price;
   }
 
+  getTotalQuantity(): number[] {
+    const quantity: number[] = JSON.parse(localStorage.getItem('total_quantity')) || [];
+    return quantity;
+  }
+
+  setItemQuantity(quantity): void{
+    this.totalQuantity = quantity;
+    localStorage.setItem('total_quantity', JSON.stringify(this.totalQuantity));
+  }
+
   removeLocalCartProduct(product): void {
     const products: any[] = JSON.parse(localStorage.getItem('cart_item'));
 
@@ -125,9 +133,7 @@ export class ProductService {
     localStorage.setItem('cart_item', JSON.stringify(products));
   }
 
-  setItemQuantity(quantity): void{
-    this.totalQuantity = quantity;
-  }
+
 
   checkPostcode(userPostcode): void{
     const userPrefix = userPostcode.substr(0,4);
