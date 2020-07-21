@@ -6,11 +6,12 @@ import { CheckoutSectionComponent } from './checkout-section/checkout-section.co
 import { OrderSectionComponent } from './order-section/order-section.component';
 import { CartRoutingModule } from './cart-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MyorderSectionComponent } from './myorder-section/myorder-section.component';
 
 
 
 @NgModule({
-  declarations: [CartComponent, CartSectionComponent, CheckoutSectionComponent, OrderSectionComponent],
+  declarations: [CartComponent, CartSectionComponent, CheckoutSectionComponent, OrderSectionComponent, MyorderSectionComponent],
     imports: [
       CommonModule,
       CartRoutingModule,

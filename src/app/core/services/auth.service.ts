@@ -8,6 +8,7 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { ProductService } from './product.service';
+import { first, map, takeUntil } from 'rxjs/operators';
 
 
 @Injectable({
@@ -41,26 +42,11 @@ export class AuthService {
           this.users = users;
           this.userData = this.users.filter(x => x.uid === result.user.uid)[0];
           localStorage.setItem('user', JSON.stringify(this.userData));
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['']);
         });
       }).catch((error) => {
         window.alert(error.message);
       });
-  }
-
-  changeProfile(profile): void{
-    localStorage.setItem('user', JSON.stringify(profile));
-    const ref = this.db.database.ref('Users');
-    var _self = this;
-    ref.orderByChild('displayName').equalTo(profile.displayName).on("value", function(snapshot) {
-      snapshot.forEach(child => {
-        _self.db.object("Users/" + child.key).update(profile).then(r => {
-
-          return;
-        })
-      });
-    });
-    alert("updated successfully");
   }
 
   phoneLogin(): Observable<any>{
@@ -172,15 +158,64 @@ export class AuthService {
     return this.http.get(configUrl);
   }
 
-  storeOrder(cartProducts, itemPrice, totalQuantity): void{
+  changeProfile(profile): void{
+    localStorage.setItem('user', JSON.stringify(profile));
+    const ref = this.db.database.ref('Users');
+    var _self = this;
+    ref.orderByChild('displayName').equalTo(profile.displayName).on("value", function(snapshot) {
+      snapshot.forEach(child => {
+        _self.db.object("Users/" + child.key).update(profile).then(r => {
+          return;
+        })
+      });
+    });
+    alert("updated successfully");
+  }
+
+  removeOrder( ref ){
+    return new Promise((resolve, reject) => {
+
+    })
+  }
+
+  async storeOrder(cartProducts, itemPrice, totalQuantity) {
+    let flag = false;
     const newOrder = {
       displayName: this.userData.displayName,
       cartProducts: cartProducts,
       itemPrice: itemPrice,
       totalQuantity: totalQuantity
     };
-
-    const userRef = this.db.list('Order');
-    userRef.push(newOrder);
+    const existingOrder = await this.db.list('Order', ref => ref.orderByChild('displayName').equalTo(this.userData.displayName))
+      .snapshotChanges()
+      .pipe(first(), map(res => res && res.length ? res[0] : null)).toPromise();
+    if (existingOrder) {
+      try {
+        const res = await this.db.object(`Order/${existingOrder.key}`).update(newOrder);
+        console.log(res);
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      const userRef = this.db.list('Order');
+      userRef.push(newOrder);
+    }
   }
+
+  private removeExistingOrder(): Promise<boolean> {
+    return new Promise<any>((resolve) => {
+      const ref = this.db.database.ref('Order');
+
+      ref.orderByChild('displayName').equalTo(this.userData.displayName).on('value',async (snapshot) => {
+        snapshot.forEach(child => {
+          this.db.object('Order/' + child.key).remove().then((res) => {
+            resolve(true);
+          }).catch((e) => {
+            resolve(false);
+          });
+        });
+      });
+    });
+  }
+
 }

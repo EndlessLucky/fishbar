@@ -29,7 +29,7 @@
                     <tbody>
                         <tr class="cart_item" *ngFor="let product of cartProducts, let i = index">
                             <td class="product-remove">
-                                <a [routerLink]="['/cart', 'cart']" class="remove" (click)="removeCart(product)">&times;</a>
+                                <a [routerLink]="['/cart', 'cart']" class="remove" (click)="removeCart(product, this.itemPrice[i], this.totalQuantity[i])">&times;</a>
                             </td>
                             <td class="product-thumbnail">
                                 <a href="single-product-v1.html">

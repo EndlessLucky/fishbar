@@ -48,6 +48,7 @@ export class CheckoutSectionComponent implements OnInit {
         address: this.authService.userData.address
       });
     }
+    this.productService.totalPrice = localStorage.getItem('totalPrice');
   }
 
   getCartProduct(): void {
@@ -60,6 +61,7 @@ export class CheckoutSectionComponent implements OnInit {
 
   getTotalQuantity(): void{
     this.totalQuantity = this.productService.getTotalQuantity();
+    console.log(this.totalQuantity);
   }
 
   searchAddress(): void {
@@ -69,22 +71,22 @@ export class CheckoutSectionComponent implements OnInit {
   }
 
   placeOrder(): void{
-    console.log('cartproducts- ' + this.cartProducts);
-    console.log('itemprice- '+ this.itemPrice);
-    console.log('totalquantity- ' + this.totalQuantity);
+
     this.authService.storeOrder(this.cartProducts, this.itemPrice, this.totalQuantity);
-    this.today = new Date();
-    const shopTime = new DatePipe('en-Us').transform(this.today, 'HH', 'GMT+2');
 
-    if(this.productService.totalPrice < 10){
-      alert('Please order more items');
-    }else{
-      if(parseInt(shopTime,10) >= 10 && parseInt(shopTime,10) <= 22){
+    // this.today = new Date();
+    // const shopTime = new DatePipe('en-Us').transform(this.today, 'HH', 'GMT+2');
+    //
+    // if(this.productService.totalPrice < 10){
+    //   alert('Please order more items');
+    // }else{
+    //   if(parseInt(shopTime,10) >= 10 && parseInt(shopTime,10) <= 22){
+    //
+    //     this.router.navigate(['/cart', 'order']);
+    //   }else{
+    //     alert('Shop is closed.Please try again tomorrow');
+    //   }
+    // }
 
-        this.router.navigate(['/cart', 'order']);
-      }else{
-        alert('Shop is closed.Please try again tomorrow');
-      }
-    }
   }
 }

@@ -40,7 +40,6 @@ export class CartSectionComponent implements OnInit {
 
   getCartProduct(): void {
     this.cartProducts = this.productService.getLocalCartProducts();
-
   }
 
   getItemPrice(): void {
@@ -49,11 +48,12 @@ export class CartSectionComponent implements OnInit {
 
   getTotalQuantity(): void{
     this.totalQuantity = this.productService.getTotalQuantity();
-    if(this.totalQuantity.length === 0){
-      this.cartProducts.forEach((product) => {
+    if(this.cartProducts.length - this.totalQuantity.length > 0){
+      for(let i = this.totalQuantity.length; i<this.cartProducts.length; i++){
         this.totalQuantity.push(1);
-      });
+      }
     }
+    this.productService.setItemQuantity(this.totalQuantity);
   }
 
   calItemPrice(itemPrice): void {
@@ -65,8 +65,10 @@ export class CartSectionComponent implements OnInit {
     localStorage.setItem('totalPrice', this.productService.totalPrice);
   }
 
-  removeCart(product): void{
+  removeCart(product, itemPrice, totalQuantity): void{
     this.productService.removeLocalCartProduct(product);
+    this.productService.removeLocalItemPrice(itemPrice);
+    this.productService.removeLocalTotalQuantity(totalQuantity);
 
     // Recalling
     this.getCartProduct();

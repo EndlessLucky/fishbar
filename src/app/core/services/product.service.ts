@@ -123,15 +123,35 @@ export class ProductService {
 
   removeLocalCartProduct(product): void {
     const products: any[] = JSON.parse(localStorage.getItem('cart_item'));
-
     for (let i = 0; i < products.length; i++) {
       if (products[i].name === product.name) {
         products.splice(i, 1);
         break;
       }
     }
-
     localStorage.setItem('cart_item', JSON.stringify(products));
+  }
+
+  removeLocalItemPrice(itemPrice): void {
+    const localItemPrice: any[] = JSON.parse(localStorage.getItem('item_price'));
+    for (let i = 0; i < localItemPrice.length; i++) {
+      if (localItemPrice[i] === itemPrice) {
+        localItemPrice.splice(i, 1);
+        break;
+      }
+    }
+    localStorage.setItem('item_price', JSON.stringify(localItemPrice));
+  }
+
+  removeLocalTotalQuantity(totalQuantity): void {
+    const localTotalQuantity: any[] = JSON.parse(localStorage.getItem('total_quantity'));
+    for (let i = 0; i < localTotalQuantity.length; i++) {
+      if (localTotalQuantity[i] === totalQuantity) {
+        localTotalQuantity.splice(i, 1);
+        break;
+      }
+    }
+    localStorage.setItem('total_quantity', JSON.stringify(localTotalQuantity));
   }
 
   checkPostcode(userPostcode): void{
@@ -151,6 +171,4 @@ export class ProductService {
   clearCart(): void{
     localStorage.clear();
   }
-
-
 }
