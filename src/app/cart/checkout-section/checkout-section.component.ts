@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import {ProductService} from '../../core/services/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'fishbar-checkout-section',
@@ -31,7 +33,8 @@ export class CheckoutSectionComponent implements OnInit {
     public productService: ProductService,
     private router: Router,
     private fb: FormBuilder,
-    public authService: AuthService
+    public authService: AuthService,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -73,6 +76,8 @@ export class CheckoutSectionComponent implements OnInit {
   placeOrder(): void{
 
     this.authService.storeOrder(this.cartProducts, this.itemPrice, this.totalQuantity);
+
+
 
     // this.today = new Date();
     // const shopTime = new DatePipe('en-Us').transform(this.today, 'HH', 'GMT+2');
