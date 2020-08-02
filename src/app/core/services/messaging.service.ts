@@ -24,6 +24,7 @@ export class MessagingService {
       (_messaging) => {
         _messaging.onMessage = _messaging.onMessage.bind(_messaging);
         _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
+        _messaging.usePublicVapidKey('BG322C77xn_CCEoVzqTKFxZe2bamD1iokC3drKkJNKKc_JcWA_hJmNne1Gu9EbXzcgqnmF8lPLqd1sZIvFIF5S8');
       }
     )
   }

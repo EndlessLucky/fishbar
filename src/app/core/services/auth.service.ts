@@ -197,29 +197,7 @@ export class AuthService {
       userRef.push(newOrder);
     }
 
-    const url = 'https://fcm.googleapis.com/fcm/send';
 
-    let headers = new HttpHeaders({
-      'Authorization': 'key=AAAAjpt5FwY:APA91bEbFfwJXlscdU-6p5WmLuhxbkqeeW5WcgTH5ci7XmIN6XtkD6yB2PRPKXlhr6G_ILIZ5PG1GhEpnUXcrNsa4uFQqSqY7srz3QZk4u2FmINADw4bfOvrmPgOO9_R9DuP0t9NuSuc',
-      'Content-Type': 'application/json'
-    });
-    let options = { headers: headers };
-
-    console.log('pushtoken-'+this.pushToken);
-
-    const body = {
-      "notification" : {
-        "title": 'New order',
-        "body": 'New order is received from' + this.userData.displayName
-      },
-      "to": this.pushToken
-    }
-
-    this.http.post(url,body, options).pipe(
-      tap(res => {
-        console.log(res);
-      })
-    );
   }
 
   setPushToken(token){
