@@ -4,19 +4,26 @@ import { RouterModule } from '@angular/router';
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { SimplePaymentIntentComponent } from './simple-payment-intent/simple-payment-intent.component';
+import { NgxStripeModule } from 'ngx-stripe';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    SimplePaymentIntentComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    NgxStripeModule,
+    ReactiveFormsModule
   ],
   exports: [
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    SimplePaymentIntentComponent
   ]
 })
 export class LayoutModule { }

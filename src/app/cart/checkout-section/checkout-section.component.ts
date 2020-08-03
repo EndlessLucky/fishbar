@@ -76,28 +76,30 @@ export class CheckoutSectionComponent implements OnInit {
   placeOrder(): void{
     // this.authService.storeOrder(this.cartProducts, this.itemPrice, this.totalQuantity);
 
-    const url = 'https://fcm.googleapis.com/fcm/send';
 
-    let headers = new HttpHeaders({
-      'Authorization': 'key=AAAAjpt5FwY:APA91bEbFfwJXlscdU-6p5WmLuhxbkqeeW5WcgTH5ci7XmIN6XtkD6yB2PRPKXlhr6G_ILIZ5PG1GhEpnUXcrNsa4uFQqSqY7srz3QZk4u2FmINADw4bfOvrmPgOO9_R9DuP0t9NuSuc',
-      'Content-Type': 'application/json'
-    });
-    let options = { headers: headers };
 
-    const body = {
-      "notification" : {
-        "title": 'New order',
-        "body": 'New order is received from',
-        "click_action": "http://localhost:4200"
-      },
-      "to": 'dgxJ6Er0Tt6PtkF2AE73dg:APA91bHMjZROljMtXZwP2T6CmwiDlhpgOPpnQ3F3P2RZNHGB4sGKTBa-0YdD7-fmV4rzRzs8Xlg8n58TU_yWdVv-jn4tbgIZsolPyZr9N5_Qgpxkf1-Cf0DLF4vvQuSy-NOKPQMO4oK0'
-    }
-
-    this.http.post(url,body, options).pipe(
-      tap(res => {
-        console.log(res);
-      })
-    );
+    // const url = 'https://fcm.googleapis.com/fcm/send';
+    //
+    // let headers = new HttpHeaders({
+    //   'Authorization': 'key=AAAAjpt5FwY:APA91bEbFfwJXlscdU-6p5WmLuhxbkqeeW5WcgTH5ci7XmIN6XtkD6yB2PRPKXlhr6G_ILIZ5PG1GhEpnUXcrNsa4uFQqSqY7srz3QZk4u2FmINADw4bfOvrmPgOO9_R9DuP0t9NuSuc',
+    //   'Content-Type': 'application/json'
+    // });
+    // let options = { headers: headers };
+    //
+    // const body = {
+    //   "notification" : {
+    //     "title": 'New order',
+    //     "body": 'New order is received from',
+    //     "click_action": "http://localhost:4200"
+    //   },
+    //   "to": 'dgxJ6Er0Tt6PtkF2AE73dg:APA91bHMjZROljMtXZwP2T6CmwiDlhpgOPpnQ3F3P2RZNHGB4sGKTBa-0YdD7-fmV4rzRzs8Xlg8n58TU_yWdVv-jn4tbgIZsolPyZr9N5_Qgpxkf1-Cf0DLF4vvQuSy-NOKPQMO4oK0'
+    // }
+    //
+    // this.http.post(url,body, options).pipe(
+    //   tap(res => {
+    //     console.log(res);
+    //   })
+    // );
 
 
     // this.today = new Date();

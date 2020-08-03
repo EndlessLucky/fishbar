@@ -12,8 +12,9 @@ export const environment = {
     storageBucket: "foodorder-3cc96.appspot.com",
     messagingSenderId: "612493760262",
     appId: "1:612493760262:web:e3ff09fa26f0371b95b087",
-    measurementId: "G-BH3YNJWC5H"
-  }
+    measurementId: "G-BH3YNJWC5H",
+  },
+  apiUrl: "http://localhost:4200"
 };
 
 /*
