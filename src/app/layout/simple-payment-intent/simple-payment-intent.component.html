@@ -1,0 +1,13 @@
+<ngx-stripe-card-group
+        [formGroup]="stripeTest"
+        [elementsOptions]="elementsOptions"
+>
+    <input formControlName="name" />
+    <input formControlName="amount" />
+    <ngx-stripe-card-number [options]="cardOptions"></ngx-stripe-card-number>
+    <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
+    <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
+    <button type="submit" (click)="pay()">
+        PAY
+    </button>
+</ngx-stripe-card-group>

@@ -9,6 +9,8 @@ import { AsyncPipe } from '@angular/common';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { HttpClientModule } from '@angular/common/http';
+// Import your library
+import { NgxStripeModule } from 'ngx-stripe';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,7 +35,8 @@ import { MessagingService } from './core/services/messaging.service';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxStripeModule.forRoot('***your-stripe-publishable-key***'),
   ],
   providers: [MessagingService, AsyncPipe],
   bootstrap: [AppComponent]
